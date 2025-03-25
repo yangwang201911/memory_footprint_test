@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
                 std::cout << "Commit size: " << commit_size / (1024 * 1024) << "\tHeap size: " << heap_size / (1024 * 1024) << std::endl;
             }
 #endif
-            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
         } });
 
     ov::Core core;
