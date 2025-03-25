@@ -55,6 +55,14 @@ int main(int argc, char *argv[])
     std::replace(csv_file_path.begin(), csv_file_path.end(), ':', '_');
     csv_file_path = csv_file_path + ".csv";
     std::cout << "Will write memory usage data to: " << csv_file_path << std::endl;
+    std::ofstream csv_file(csv_file_path);
+    if (!csv_file.is_open())
+    {
+        std::cerr << "Error: Unable to open file for writing memory usage data." << std::endl;
+        return -1;
+    }
+    // Write CSV header
+    csv_file << "Time (s),Commit Size (MB),Heap Size (MB)" << std::endl;
     std::thread memory_logger([&]()
                               {
         auto start_time = Clock::now();
@@ -106,14 +114,6 @@ int main(int argc, char *argv[])
     }
     std::cout << "Will start inference on model 1 with number of iterations: " << niters << std::endl;
 
-    std::ofstream csv_file(csv_file_path);
-    if (!csv_file.is_open())
-    {
-        std::cerr << "Error: Unable to open file for writing memory usage data." << std::endl;
-        return -1;
-    }
-    // Write CSV header
-    csv_file << "Iteration,Commit Size (MB),Heap Size (MB)" << std::endl;
     try
     {
         // will implement inference on model_1 only
