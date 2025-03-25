@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
                 auto current_time = Clock::now();
                 std::chrono::duration<double> elapsed_time = current_time - start_time;
                 csv_file << elapsed_time.count() << "," << commit_size / (1024 * 1024) << "," << heap_size / (1024 * 1024) << std::endl;
+                std::cout << elapsed_time.count() << "," << commit_size / (1024 * 1024) << "," << heap_size / (1024 * 1024) << std::endl;
             }
 #endif
             std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Sleep for 0.5 seconds
@@ -152,21 +153,6 @@ int main(int argc, char *argv[])
                 std::chrono::duration<double> elapsed_time = current_time - iter_start_time;
                 std::cout << "Iteration: " << i << " iteration time: " << elapsed_time.count() << " seconds"
                           << std::endl;
-#ifdef _WIN32
-                // Get process handle
-                HANDLE process = GetCurrentProcess();
-
-                // Get memory information
-                PROCESS_MEMORY_COUNTERS_EX pmc;
-                if (GetProcessMemoryInfo(process, (PROCESS_MEMORY_COUNTERS *)&pmc, sizeof(pmc)))
-                {
-                    SIZE_T commit_size = pmc.PrivateUsage; // Commit size
-                    SIZE_T heap_size = pmc.WorkingSetSize; // Heap size
-                    std::cout << "Commit Size: " << commit_size / (1024 * 1024) << " MB, "
-                              << "Heap Size: " << heap_size / (1024 * 1024) << " MB" << std::endl;
-                    csv_file << i << "," << commit_size / (1024 * 1024) << "," << heap_size / (1024 * 1024) << std::endl;
-                }
-#endif
             }
         }
         auto end_time = Clock::now();
