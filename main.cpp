@@ -67,6 +67,10 @@ int main(int argc, char* argv[]) {
     std::replace(csv_file_path.begin(), csv_file_path.end(), '/', '_');
     std::replace(csv_file_path.begin(), csv_file_path.end(), ',', '_');
     std::replace(csv_file_path.begin(), csv_file_path.end(), '.', '_');
+    std::replace(csv_file_path.begin(), csv_file_path.end(), ':', '_');
+    if (!csv_file_path.empty() && csv_file_path.back() == '_') {
+        csv_file_path.back() = '.';
+    }
     std::cout << "Will start inference on model 1 with number of iterations: " << niters << std::endl;
     std::cout << "and write memory usage data to: " << csv_file_path << std::endl;
 
