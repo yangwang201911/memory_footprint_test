@@ -62,15 +62,13 @@ int main(int argc, char* argv[]) {
         compiled_model_3 = core.compile_model(model_3, device_name, properties);
         std::cout << "Model 3 compiled successfully." << std::endl;
     }
-    csv_filename << "memory_footprint.csv";
+    csv_filename << "memory_footprint";
     std::string csv_file_path = csv_filename.str();
     std::replace(csv_file_path.begin(), csv_file_path.end(), '/', '_');
     std::replace(csv_file_path.begin(), csv_file_path.end(), ',', '_');
     std::replace(csv_file_path.begin(), csv_file_path.end(), '.', '_');
     std::replace(csv_file_path.begin(), csv_file_path.end(), ':', '_');
-    if (!csv_file_path.empty() && csv_file_path.back() == '_') {
-        csv_file_path.back() = '.';
-    }
+    csv_file_path = csv_file_path + ".csv";
     std::cout << "Will start inference on model 1 with number of iterations: " << niters << std::endl;
     std::cout << "and write memory usage data to: " << csv_file_path << std::endl;
 
