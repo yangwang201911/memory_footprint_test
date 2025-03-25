@@ -87,10 +87,8 @@ int main(int argc, char *argv[])
     std::cout << "Device Name: " << device_name << std::endl;
     ov::CompiledModel compiled_model_1, compiled_model_2, compiled_model_3;
     std::shared_ptr<ov::Model> model_1, model_2, model_3;
-    ov::AnyMap properties = {ov::cache_dir("my_caches"),
-                             ov::hint::performance_mode(ov::hint::PerformanceMode::THROUGHPUT),
-                             ov::hint::allow_auto_batching(false),
-                             ov::intel_auto::enable_runtime_fallback(false)};
+    ov::AnyMap properties = device_name.find("AUTO") != std::string::npos ? ov::AnyMap{ov::cache_dir("my_caches"), ov::intel_auto::enable_runtime_fallback(false)}
+                                                                          : ov::AnyMap{ov::cache_dir("my_caches")};
     // Example: Compile the first model
     if (!model_path1.empty())
     {
