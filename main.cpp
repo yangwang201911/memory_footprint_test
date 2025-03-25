@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
     std::thread memory_logger([&]()
                               {
         auto start_time = Clock::now();
+        int count = 0;
         while (!stop_memory_logging) {
 #ifdef _WIN32
             HANDLE process = GetCurrentProcess();
@@ -75,8 +76,8 @@ int main(int argc, char *argv[])
                 SIZE_T heap_size = pmc.WorkingSetSize; // Heap size
                 auto current_time = Clock::now();
                 std::chrono::duration<double> elapsed_time = current_time - start_time;
-                csv_file << elapsed_time.count() << "," << commit_size / (1024 * 1024) << "," << heap_size / (1024 * 1024) << std::endl;
-                std::cout << "Commit size: " << commit_size / (1024 * 1024) << "\tHeap size: " << heap_size / (1024 * 1024) << std::endl;
+                csv_file << count << "," << commit_size / (1024 * 1024) << "," << heap_size / (1024 * 1024) << std::endl;
+                std::cout << "Index: " << count << "Commit size: " << commit_size / (1024 * 1024) << "\tHeap size: " << heap_size / (1024 * 1024) << std::endl;
             }
 #endif
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
