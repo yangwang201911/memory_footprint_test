@@ -24,13 +24,12 @@ int main(int argc, char *argv[])
     std::string model_path1 = argc > 2 ? argv[2] : "";
     std::string model_path2 = argc > 3 ? argv[3] : "";
     std::string model_path3 = argc > 4 ? argv[4] : "";
-    std::string opt_save_path = argc > 5 ? argv[5] : "";
     int niters = 1000;
     std::atomic<bool> stop_memory_logging(false);
     if (device_name.empty() || (model_path1.empty() && model_path2.empty() && model_path3.empty()))
     {
         std::cout << "usage: " << argv[0]
-                  << " <device_name> <model_path1> [model_path2] [model_path3] [optional csv file name] " << std::endl;
+                  << " <device_name> <model_path1> [model_path2] [model_path3]" << std::endl;
         std::cerr << "Error: Device name or model paths cannot be empty. Please provide valid inputs." << std::endl;
         return -1;
     }
@@ -54,7 +53,6 @@ int main(int argc, char *argv[])
     std::replace(csv_file_path.begin(), csv_file_path.end(), ',', '_');
     std::replace(csv_file_path.begin(), csv_file_path.end(), '.', '_');
     std::replace(csv_file_path.begin(), csv_file_path.end(), ':', '_');
-    csv_file_path = opt_save_path.empty() ? csv_file_path : csv_file_path + "_" + opt_save_path;
     csv_file_path = csv_file_path + ".csv";
     std::cout << "Will write memory usage data to: " << csv_file_path << std::endl;
     std::ofstream csv_file(csv_file_path);
