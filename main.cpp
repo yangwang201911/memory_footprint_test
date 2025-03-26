@@ -72,11 +72,11 @@ int main(int argc, char *argv[])
             HANDLE process = GetCurrentProcess();
             PROCESS_MEMORY_COUNTERS_EX pmc;
             if (GetProcessMemoryInfo(process, (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {
-                SIZE_T commit_size = pmc.PrivateUsage; // Commit size
+                double commit_size = static_cast<double>(pmc.PrivateUsage) / (1024 * 1024); // Commit size
                 auto current_time = Clock::now();
                 std::chrono::duration<double> elapsed_time = current_time - start_time;
-                csv_file << count << "," << commit_size / (1024 * 1024) << std::endl;
-                std::cout << "Index: " << count++ << "\tCommit size: " << commit_size / (1024 * 1024) << std::endl;
+                csv_file << count << "," << std::fixed << std::setprecision(2) << commit_size << std::endl;
+                std::cout << "Index: " << count << "\tCommit size: " << std::fixed << std::setprecision(2) << commit_size << " MB"<< std::endl;
             }
 #endif
             std::this_thread::sleep_for(std::chrono::milliseconds(10));

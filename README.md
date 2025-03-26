@@ -37,8 +37,7 @@ Example:
 ```
 
 # Output
-- The application will output memory usage data (commit size and heap size) to the console during execution.
+- The application will output memory usage data (commit size) to the console during execution.
 - **Memory usage data will also be saved to a CSV file** in the current working directory. The file contains the following columns:
   - `Time (s)`: Time elapsed since the start of the application.
   - `Commit Size (MB)`: The amount of committed memory.
-  - `Heap Size (MB)`: The size of the heap memory.
