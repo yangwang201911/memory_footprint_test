@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
                 auto current_time = Clock::now();
                 std::chrono::duration<double> elapsed_time = current_time - start_time;
                 csv_file << count << "," << std::fixed << std::setprecision(2) << commit_size << std::endl;
-                std::cout << "Index: " << count << "\tCommit size: " << std::fixed << std::setprecision(2) << commit_size << " MB"<< std::endl;
+                std::cout << "Index: " << count++ << "\tCommit size: " << std::fixed << std::setprecision(2) << commit_size << " MB"<< std::endl;
             }
 #endif
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
